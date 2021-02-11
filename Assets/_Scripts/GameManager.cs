@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI titleText;
 
+    [SerializeField]
+    TextMeshProUGUI winText;
 
     // Start is called before the first frame update
     void Start()
@@ -42,9 +44,14 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void StartGame()
+    public void Baa()
     {
         startSound.Play();
+    }
+
+    public void StartGame()
+    {
+        Baa();
         StartCoroutine(playButtonAnimThenStartGame(1.2f));
     }
 
@@ -70,5 +77,12 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         SwitchGameModes();
+    }
+
+    public void Win()
+    {
+        Baa();
+        winText.gameObject.SetActive(true);
+        playingStuff.SetActive(false);
     }
 }

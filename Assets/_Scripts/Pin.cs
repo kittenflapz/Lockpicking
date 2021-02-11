@@ -29,7 +29,7 @@ public class Pin : MonoBehaviour
         {
             if (transform.position.y > minHeight)
             {
-                transform.position = new Vector2(transform.position.x, transform.position.y - fallSpeed * 0.01f);
+                transform.position = new Vector2(transform.position.x, transform.position.y - fallSpeed * 0.005f);
             }
         }
     }
