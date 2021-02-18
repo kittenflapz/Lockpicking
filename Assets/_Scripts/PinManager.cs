@@ -13,32 +13,21 @@ public class PinManager : MonoBehaviour
     [SerializeField]
     Image goatButton;
 
-
     GameManager gameManager;
 
-
+    [SerializeField]
     Pin[] pins;
     string[] keybinds = { "g", "f", "d", "s", "a" };
 
- 
-
     // Start is called before the first frame update
-
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        pins = FindObjectsOfType<Pin>();
+       
     }
     void Start()
     {
-        // assigns a key to each pin in the game
-        if (keybinds.Length > pins.Length) // no crashy
-        {
-            for (int i = 0; i < pins.Length; i++)
-            {
-                pins[i].keybind = keybinds[i];
-            }
-        }
+
     }
 
     // Update is called once per frame
@@ -53,6 +42,19 @@ public class PinManager : MonoBehaviour
         {
             targetZone.SetLockState(LockState.LOCKED);
             goatButton.color = Color.white;
+        }
+    }
+
+    public void SetUpPins()
+    {
+        pins = FindObjectsOfType<Pin>();
+        // assigns a key to each pin in the game
+        if (keybinds.Length >= pins.Length) // no crashy
+        {
+            for (int i = 0; i < pins.Length; i++)
+            {
+                pins[i].keybind = keybinds[i];
+            }
         }
     }
 

@@ -33,7 +33,6 @@ public class TargetZone : MonoBehaviour
     {
         if (collision.gameObject.tag == "Pin")
         {
-            print("entering");
             pinsInZone++;
         }
     }
@@ -42,7 +41,6 @@ public class TargetZone : MonoBehaviour
     {
         if (collision.gameObject.tag == "Pin")
         {
-            print("leaving");
             pinsInZone--;
         }
     }

@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 enum GameMode
 {
     START,
     PLAYING
+}
+
+public enum GameDifficulty
+{
+    EASY,
+    NORMAL,
+    HARD
 }
 
 public class GameManager : MonoBehaviour
@@ -18,9 +26,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject playingStuff;
     GameMode gameMode;
+    public GameDifficulty gameDifficulty;
 
     // Transition to playing mode
     AudioSource startSound;
+    [SerializeField]
+    TumblerSpawner tumblerSpawner;
 
     [SerializeField]
     Image playButtonSprite;
@@ -55,14 +66,21 @@ public class GameManager : MonoBehaviour
         StartCoroutine(playButtonAnimThenStartGame(1.2f));
     }
 
-    private void SwitchGameModes()
+    private void PlayGame()
     {
         if (gameMode == GameMode.START)
         {
             startStuff.SetActive(false);
             playingStuff.SetActive(true);
             gameMode = GameMode.PLAYING;
+            tumblerSpawner.SpawnTumblers(gameDifficulty);
         }
+    }
+
+    public void ExitGame()
+    {
+        // lol
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private IEnumerator playButtonAnimThenStartGame(float secondsToWait)
@@ -76,7 +94,7 @@ public class GameManager : MonoBehaviour
             titleText.color = new Color (0, 0, 0, Mathf.Lerp(1, 0, timestep));
             yield return null;
         }
-        SwitchGameModes();
+        PlayGame();
     }
 
     public void Win()
@@ -84,5 +102,21 @@ public class GameManager : MonoBehaviour
         Baa();
         winText.gameObject.SetActive(true);
         playingStuff.SetActive(false);
+    }
+
+    public void SetDifficulty(int dropdownValue)
+    {
+        switch (dropdownValue)
+        {
+            case 0:
+                gameDifficulty = GameDifficulty.EASY;
+                break;
+            case 1:
+                gameDifficulty = GameDifficulty.NORMAL;
+                break;
+            case 2:
+                gameDifficulty = GameDifficulty.HARD;
+                break;
+        }
     }
 }
