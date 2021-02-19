@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 
         // some defaults for if the user didn't change the dropdowns
         timeLeft = 30.0f;
-        skillLevel.SetText("Bad.");
+        skillLevel.SetText("bad.");
         gameDifficulty = GameDifficulty.EASY;
     }
 
