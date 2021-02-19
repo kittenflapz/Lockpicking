@@ -43,6 +43,9 @@ public class TumblerSpawner : MonoBehaviour
             case GameDifficulty.HARD:
                 numTumblers = 5;
                 break;
+            case GameDifficulty.NIGHTMARE:
+                numTumblers = 5;
+                break;
             default:
                 numTumblers = 4;
                 break;
@@ -56,6 +59,7 @@ public class TumblerSpawner : MonoBehaviour
             Instantiate(tumblerPrefab, newTumblerPosition, Quaternion.identity, tumblerParent.transform);
         }
 
+        pinManager.SetUpKeybinds();
         pinManager.SetUpPins();
     }
 }

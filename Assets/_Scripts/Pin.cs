@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pin : MonoBehaviour
 {
-    public string keybind;
+    public char keybind;
     public float fallSpeed;
     public float maxHeight;
     public float minHeight;
@@ -18,7 +18,7 @@ public class Pin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(keybind))
+        if (Input.GetKey(keybind.ToString()))
         {
             if (transform.position.y < maxHeight)
             { 
