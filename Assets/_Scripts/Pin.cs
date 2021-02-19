@@ -12,7 +12,7 @@ public class Pin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        transform.position = new Vector2(transform.position.x, transform.position.y + Random.Range(-0.5f, 0.5f));
     }
 
     // Update is called once per frame
@@ -31,6 +31,26 @@ public class Pin : MonoBehaviour
             {
                 transform.position = new Vector2(transform.position.x, transform.position.y - fallSpeed * 0.005f);
             }
+        }
+    }
+
+    public void CalcFallSpeed(PlayerSkill skill)
+    {
+        switch (skill)
+        {
+            case PlayerSkill.BAD:
+                fallSpeed = Random.Range(0.1f, 0.4f);
+                break;
+            case PlayerSkill.OK:
+                fallSpeed = Random.Range(0.15f, 0.3f);
+                break;
+            case PlayerSkill.GOOD:
+                fallSpeed = Random.Range(0.15f, 0.2f);
+                break;
+            case PlayerSkill.GOAT:
+                fallSpeed = 0.15f;
+                break;
+
         }
     }
 }

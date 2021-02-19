@@ -82,6 +82,11 @@ public class PinManager : MonoBehaviour
                 keybinds = tempKeybinds;
             }
         }
+
+       foreach(Pin pin in pins)
+        {
+            pin.CalcFallSpeed(gameManager.playerSkill);
+        }
     }
 
     public void AttemptWin()

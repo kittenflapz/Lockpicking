@@ -20,6 +20,15 @@ public enum GameDifficulty
     NIGHTMARE
 }
 
+public enum PlayerSkill
+{
+    BAD,
+    OK,
+    GOOD,
+    GOAT
+}
+
+
 public class GameManager : MonoBehaviour
 {
     // Game mode management
@@ -40,14 +49,19 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Image logoSprite;
     [SerializeField]
-    GameObject dropdown;
+    GameObject difficultyDropdown;
+    [SerializeField]
+    GameObject skillDropdown;
     [SerializeField]
     TextMeshProUGUI titleText;
     [SerializeField]
     TextMeshProUGUI endStuff;
+    [SerializeField]
+    TextMeshProUGUI skillLevel;
 
     // Gameplay
     public GameDifficulty gameDifficulty;
+    public PlayerSkill playerSkill;
     [SerializeField]
     float timeLeft;
     [SerializeField]
@@ -57,7 +71,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
       startSound = GetComponent<AudioSource>();
+
+        // some defaults for if the user didn't change the dropdowns
         timeLeft = 30.0f;
+        skillLevel.SetText("Bad.");
+        gameDifficulty = GameDifficulty.EASY;
     }
 
     // Update is called once per frame
@@ -93,7 +111,6 @@ public class GameManager : MonoBehaviour
             playingStuff.SetActive(true);
             gameMode = GameMode.PLAYING;
             tumblerSpawner.SpawnTumblers(gameDifficulty);
-            
         }
     }
 
@@ -106,7 +123,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator playButtonAnimThenStartGame(float secondsToWait)
     {
         float timestep = 0;
-        dropdown.SetActive(false);
+        difficultyDropdown.SetActive(false);
+        skillDropdown.SetActive(false);
         while (timestep < secondsToWait)
         {
             timestep += Time.deltaTime;
@@ -158,8 +176,29 @@ public class GameManager : MonoBehaviour
                 timerText.SetText(timeLeft.ToString());
                 break;
         }
+    }
 
-       
+    public void SetPlayerSkill(int dropdownValue)
+    {
+        switch (dropdownValue)
+        {
+            case 0:
+                playerSkill = PlayerSkill.BAD;
+                skillLevel.SetText("bad.");
+                break;
+            case 1:
+                playerSkill = PlayerSkill.OK;
+                skillLevel.SetText("okay.");
+                break;
+            case 2:
+                playerSkill = PlayerSkill.GOOD;
+                skillLevel.SetText("good.");
+                break;
+            case 3:
+                playerSkill = PlayerSkill.GOAT;
+                skillLevel.SetText("the GOAT.");
+                break;
+        }
     }
 
     private void decrementTimer()
